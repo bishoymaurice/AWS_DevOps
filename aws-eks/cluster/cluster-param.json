@@ -1,0 +1,14 @@
+[
+	{
+		"ParameterKey": "EnvironmentName",
+		"ParameterValue": "eks-cluster"
+	},
+	{
+		"ParameterKey": "VPCEnvironmentName",
+		"ParameterValue": "eks-vpc"
+	},
+	{
+		"ParameterKey": "IamEnvironmentName",
+		"ParameterValue": "eks-iam"
+	}
+]

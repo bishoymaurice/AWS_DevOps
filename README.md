@@ -4,11 +4,11 @@ This project simulates needed steps to create Kubernetes cluster on AWS using Co
 
 ### Tools used:
 - AWS
-- CloudFormation:
-    - VPC (2 Public Subnets)
-    - IAM Roles for EKS & Worker Nodes
-    - Security Groups for EKS
-    - Kubernetes Cluster
-- Docker
-- Kubernetes (AWS EKS)
+    - Kubernetes
+    - CloudFormation:
+        - VPC (2 Public Subnets)
+        - IAM Roles for EKS & Worker Nodes
+        - Security Groups for EKS
+        - Kubernetes Cluster
+- Dockerfile
 - Circle CI

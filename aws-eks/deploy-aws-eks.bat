@@ -1,4 +1,4 @@
-@REM Get parameters
+@REM Set parameters
 set mypath=%cd%
 set aws_region=eu-west-2
 set ec2_key_name=my-eks-key

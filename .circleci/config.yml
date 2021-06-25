@@ -1,0 +1,40 @@
+version: 2.1
+
+jobs:
+
+  lint:
+    steps:
+      - checkout
+      - run:
+          name: Lint Dockerfile
+          command: |
+            cd ./docker
+            make lint
+  
+  build:
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: |
+            cd ./docker
+            make build
+  
+  push:
+    steps:
+      - run:
+          name: Push Docker image to Docker Hub
+          command: |
+	          docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
+            cd ./docker
+            make push
+
+
+workflows:
+  default:
+    jobs:
+      - lint
+      - build
+          requires: [lint]
+      - push
+          requires: [build]

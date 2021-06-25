@@ -1,13 +1,11 @@
-setup:
-	python -m venv .venv
-
-install:
-	source ~/.venv/bin/activate
-	python -m pip install --upgrade pip && \
-		python -m pip install -r requirements.txt
+tag=v1.0.0
+dockerpath=bishoy/sampleapp:${tag}
 
 lint:
-	source ~/.venv/bin/activate
-	hadolint NginX.Dockerfile
+	docker run --rm -i hadolint/hadolint < NginX.Dockerfile
 
-all: setup install lint
+build:
+	docker build -t bishoy/sampleapp:${tag} --tag=${tag} NginX.Dockerfile
+
+push:
+	docker image push ${dockerpath}

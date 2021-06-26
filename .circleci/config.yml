@@ -71,7 +71,7 @@ jobs:
 
   deploy:
     docker:
-      - image: debian:stretch-slim
+      - image: circleci/buildpack-deps:stretch
     
     working_directory: ~/repo
     
@@ -79,7 +79,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - debian:stretch-slim
+            - circleci/buildpack-deps:stretch
       - run:
           name: Install dependencies
           command: |
@@ -112,7 +112,7 @@ jobs:
       - save_cache:
           paths:
             - ~/kube-deploy
-          key: debian:stretch-slim
+          key: circleci/buildpack-deps:stretch
 
 workflows:
   default:

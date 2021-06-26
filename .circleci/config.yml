@@ -105,14 +105,14 @@ jobs:
           command: |
             cd kube-deploy
             export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" app-deploy.yaml
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" app-expose.yaml
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" load-balancer.yaml
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" Makefile
-            more app-deploy.yaml
-            more app-expose.yaml
-            more load-balancer.yaml
-            more Makefile
+            # sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" app-deploy.yaml
+            # sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" app-expose.yaml
+            # sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" load-balancer.yaml
+            # sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" Makefile
+            # more app-deploy.yaml
+            # more app-expose.yaml
+            # more load-balancer.yaml
+            # more Makefile
       - run:
           name: Deploy blue instance
           command: |

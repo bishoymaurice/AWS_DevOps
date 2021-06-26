@@ -27,6 +27,13 @@ This project simulates needed steps to create Kubernetes cluster on AWS using Co
     - DOCKERHUB_PASSWORD
 4. Docker (optional) if you want to try the build process locally and not on CircleCI
 
+
+### Deployment Strategy
+
+- The pipeline will spin up new instance of the application, wait until it's ready (in this stage you can add your smoke tests)
+- Then load balancer is switched to forward traffic to the new instance
+- At the end of the pipeline, the old version of the application is removed from Kubernetes cluster
+
 ### How To:
 
 #### Build Kubernetes cluster on AWS

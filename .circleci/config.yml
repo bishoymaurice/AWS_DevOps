@@ -56,10 +56,10 @@ jobs:
           command: |
             cd docker/app
             export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}
-            sed -i 's/REFERENCE_NO/${CIRCLE_WORKFLOW}/g' index.html
+            sed -i "s/REFERENCE_NO/${CIRCLE_WORKFLOW}/g" index.html
             more index.html
             cd ..
-            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW}/g' Makefile
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" Makefile
             more Makefile
             make build
       - run:
@@ -106,7 +106,7 @@ jobs:
             cd kube-deploy
             make undeploy
             export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}
-            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW}/g' app-deploy.yaml
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" app-deploy.yaml
             more app-deploy.yaml
             make deploy
       - save_cache:

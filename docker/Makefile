@@ -1,5 +1,6 @@
-DOCKER_IMAGE_TAG=v1.0.0
-DOCKER_PATH=bishoy/sampleapp:${DOCKER_IMAGE_TAG}
+DOCKER_IMAGE=bishoy/sampleapp
+DOCKER_TAG=v1.0.0
+DOCKER_PATH=${DOCKER_IMAGE}:${DOCKER_TAG}
 
 install:
 	pip install --upgrade pip &&\
@@ -10,8 +11,8 @@ lint:
 	html_lint.py ./app/index.html
 
 build:
-	docker build -t ${DOCKER_PATH} --tag=${DOCKER_IMAGE_TAG} .
+	docker build -t ${DOCKER_PATH} --tag=${DOCKER_TAG} .
 
 push:
-	docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-	docker image push ${DOCKER_PATH}
+	echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+	docker push $DOCKER_PATH

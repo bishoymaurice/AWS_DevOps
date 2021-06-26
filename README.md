@@ -56,8 +56,7 @@ sh ./deploy-aws-eks.sh
 1. Go to docker/app.
 2. Replace index.html file with the new one.
 3. Commit changes to main branch.
-4. CircleCI will be triggered automatically and will do the following.
-    - Linting for both HTML code and Dockerfile.
-    - Build new docker image with the new HTML code pushed.
-    - Push the new docker image into your personal docker hub account.
-    - Deploy the new version on Kubernetes cluster using simple Blue/Green strategy.
+4. CircleCI will be triggered automatically and will do the following:
+    1. Linting for both HTML code and Dockerfile.
+    2. Build new docker image and push it into your docker hub account.
+    3. Deploy the new version on Kubernetes cluster using simple Blue/Green strategy.

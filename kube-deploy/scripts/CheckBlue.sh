@@ -1,3 +1,5 @@
+#!/bin/bash
+
 while true; do \
   echo "Wait 2 seconds .."
   sleep 2; \

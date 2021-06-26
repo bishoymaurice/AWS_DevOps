@@ -13,11 +13,17 @@ configure:
 deploy-blue:
 	kubectl apply -f ./app-deploy.yaml
 
-test-blue:
-	echo "Test blue"
+check-blue:
+	while : ; do
+		sleep 2;
+		READY=$(kubectl get deploy sampleapp-deployment-TARGET_TAG | grep "1/1" | wc -l);
+		[[ "$READY" != "1" ]] || break
+	done
 
-blue-to-green:
-	echo "Blue to green"
+switch-load-balancer:
+	kubectl apply -f ./load-balancer.yaml
 
-destroy-green:
-	echo "Destroy green"
+destroy-old-version:
+	export OLD_DEPLOYMENT=$(kubectl get deployments|grep -v sampleapp-deployment-847fa52|awk '{ print$1 }'|grep -v NAME)
+	echo "Old deployment is: ${OLD_DEPLOYMENT} and will be destroyed"
+	kubectl delete deployment ${OLD_DEPLOYMENT}

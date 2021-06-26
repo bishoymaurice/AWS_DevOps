@@ -14,10 +14,10 @@ deploy-blue:
 	kubectl apply -f ./app-deploy.yaml
 
 check-blue:
-	while true; do sleep 2; READY=$(kubectl get deploy sampleapp-deployment-TARGET_TAG | grep "1/1" | wc -l); [[ "${READY}" != "1" ]] || break; done
+	sh ./scripts/CheckBlue.sh
 
 switch-load-balancer:
 	kubectl apply -f ./load-balancer.yaml
 
 destroy-old-version:
-	kubectl delete deployment $(kubectl get deployments | grep -v sampleapp-deployment-TARGET_TAG | awk '{ print $1 }' | grep -v NAME)
+	sh ./scripts/DestroyBlue.sh

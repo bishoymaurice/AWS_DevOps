@@ -4,6 +4,6 @@ install:
 
 lint:
 	hadolint Dockerfile
-	lint html here
+	html_lint.py ../app/index.html
 
 all: install lint

@@ -5,4 +5,5 @@ TAG=v1.0.0
 docker build -t bishoy/sampleapp:${TAG} --tag=${TAG} .
 
 # Push to dockerhub
-docker run -p 8000:80 bishoy/sampleapp:${TAG}
+docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+docker image push $dockerpath

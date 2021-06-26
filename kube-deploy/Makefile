@@ -11,7 +11,7 @@ configure:
 	kubectl get rs
 
 deploy-blue:
-	kubectl create -f ./app-deploy.yaml
+	kubectl apply -f ./app-deploy.yaml
 
 test-blue:
 	echo "Test blue"

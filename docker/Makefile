@@ -9,7 +9,7 @@ install:
 		pip install -r requirements.txt
 
 lint:
-	hadolint Dockerfile
+	hadolint ./Dockerfile
 	html_lint.py ./app/index.html
 
 build:

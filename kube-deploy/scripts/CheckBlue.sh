@@ -10,7 +10,7 @@ do
     STATUS=`kubectl get deploy sampleapp-deployment-TARGET_TAG | grep "1/1" | wc -l`
     READY=1
 
-    if [ $STATUS == $READY ]
+    if [ $STATUS eq $READY ]
     then
         break
     fi

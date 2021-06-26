@@ -101,14 +101,17 @@ jobs:
             cd kube-deploy
             make configure
       - run:
-          name: Deploy new image
+          name: Deploy blue instance
           command: |
             cd kube-deploy
-            make undeploy
             export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" app-deploy.yaml
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" app-expose.yaml
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" load-balancer.yaml
             more app-deploy.yaml
-            make deploy
+            more app-expose.yaml
+            more load-balancer.yaml
+            make deploy-blue
       - save_cache:
           paths:
             - ~/kube-deploy

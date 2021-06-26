@@ -71,7 +71,7 @@ jobs:
 
   deploy:
     docker:
-      - image: roffe/kubectl:v1.13.2
+      - image: debian:stretch-slim
     
     working_directory: ~/repo
     
@@ -79,12 +79,16 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - roffe/kubectl:v1.13.2
+            - debian:stretch-slim
       - run:
           name: Install dependencies
           command: |
             apt update
-            apt install make
+            apt install -y make curl
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+            echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
       - run:
           name: Build Docker image
           command: |
@@ -100,7 +104,7 @@ jobs:
       - save_cache:
           paths:
             - ~/kube-deploy
-          key: roffe/kubectl:v1.13.2
+          key: debian:stretch-slim
 
 workflows:
   default:

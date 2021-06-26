@@ -12,8 +12,14 @@ setup:
 	kubectl create -f ./app-expose.yaml
 	kubectl create -f ./load-balancer.yaml
 
-deploy:
+deploy-blue:
 	kubectl create -f ./app-deploy.yaml
 
-undeploy:
-	kubectl delete -f ./app-deploy.yaml || echo "Deployment already not found"
+test-blue:
+	echo "Test blue"
+
+blue-to-green:
+	echo "Blue to green"
+
+destroy-green:
+	echo "Destroy green"

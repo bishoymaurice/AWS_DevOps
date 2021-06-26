@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sampleapp-deployment
+  name: sampleapp-deployment-TARGET_TAG
   labels:
-    app: sampleapp
+    app: sampleapp-TARGET_TAG
 spec:
   replicas: 1
   selector:

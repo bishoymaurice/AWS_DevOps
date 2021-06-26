@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 kubectl get deployments | grep -v sampleapp-deployment-TARGET_TAG
 

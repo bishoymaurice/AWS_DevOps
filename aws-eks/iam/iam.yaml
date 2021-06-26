@@ -1,4 +1,4 @@
-Description: 'Amazon EKS Cluster Role'
+Description: 'EKS Cluster Role'
 
 Parameters:
 

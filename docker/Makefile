@@ -1,3 +1,4 @@
+#!/bin/bash
 
 DOCKER_IMAGE=bishoy/sampleapp
 DOCKER_TAG=v1.0.0

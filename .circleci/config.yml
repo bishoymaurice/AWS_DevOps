@@ -121,6 +121,8 @@ jobs:
             # Makefile
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./Makefile
             more ./Makefile
+
+            echo "All files are configured!"
       - run:
           name: Deploy blue instance
           command: |

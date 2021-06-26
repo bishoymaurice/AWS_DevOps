@@ -8,10 +8,6 @@ configure:
 	aws eks --region eu-west-2 update-kubeconfig --name eks-cluster
 	kubectl get svc
 
-setup:
-	kubectl create -f ./app-expose.yaml
-	kubectl create -f ./load-balancer.yaml
-
 deploy-blue:
 	kubectl create -f ./app-deploy.yaml
 

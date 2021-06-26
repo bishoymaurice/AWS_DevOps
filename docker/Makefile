@@ -16,5 +16,5 @@ build:
 	docker build -t ${DOCKER_PATH} --tag=${DOCKER_TAG} .
 
 push:
-	docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASS}
+	echo ${DOCKERHUB_PASS} | docker login --username ${DOCKERHUB_USERNAME} --password-stdin
 	docker push ${DOCKER_PATH}

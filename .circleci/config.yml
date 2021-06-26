@@ -55,10 +55,10 @@ jobs:
           name: Build Docker image
           command: |
             cd docker/app
-            export TARGET_TAG=${CIRCLE_WORKFLOW_ID:0:7}
-            sed -i 's/REFERENCE_NO/${TARGET_TAG}/g' index.html
+            export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}
+            sed -i 's/REFERENCE_NO/${CIRCLE_WORKFLOW}/g' index.html
             cd ..
-            sed -i 's/TARGET_TAG/${TARGET_TAG}/g' Makefile
+            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW}/g' Makefile
             make build
       - run:
           name: Push Docker image to docker hub
@@ -103,8 +103,8 @@ jobs:
           command: |
             cd kube-deploy
             make undeploy
-            export TARGET_TAG=${CIRCLE_WORKFLOW_ID:0:7}
-            sed -i 's/TARGET_TAG/${TARGET_TAG:0:7}/g' app-deploy.yaml
+            export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}
+            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW}/g' app-deploy.yaml
             make deploy
       - save_cache:
           paths:

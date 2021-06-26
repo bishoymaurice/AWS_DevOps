@@ -45,6 +45,11 @@ jobs:
     
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "./docker/Dockerfile" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - setup_remote_docker
       - run:
           name: Build Docker image
@@ -56,6 +61,10 @@ jobs:
           command: |
             cd docker
             make push
+      - save_cache:
+          paths:
+            - ~/docker
+          key: v1-dependencies-{{ checksum "./docker/Dockerfile" }}
   
 workflows:
   default:

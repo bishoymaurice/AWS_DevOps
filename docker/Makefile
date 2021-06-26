@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOCKER_IMAGE=bishoy/sampleapp
-DOCKER_TAG=v1.0.0
+DOCKER_TAG=TARGET_TAG
 DOCKER_PATH=${DOCKER_IMAGE}:${DOCKER_TAG}
 
 install:

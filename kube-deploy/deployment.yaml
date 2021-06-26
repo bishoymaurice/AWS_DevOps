@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: sampleapp
-        image: bishoy/sampleapp:v1.0.0
+        image: bishoy/sampleapp:TARGET_TAG
         ports:
         - containerPort: 80

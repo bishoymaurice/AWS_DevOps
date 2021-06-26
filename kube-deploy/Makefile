@@ -1,8 +1,12 @@
 #!/bin/bash
 
 setup:
-	kubectl apply -f deployment.yaml
-	kubectl apply -f app-expose.yaml
-	kubectl apply -f load-balancer.yaml
+	kubectl create -f deployment.yaml
+	kubectl create -f app-expose.yaml
+	kubectl create -f load-balancer.yaml
 
-deploy-blue:
+deploy:
+	kubectl create -f deployment.yaml
+
+undeploy:
+	kubectl delete -f deployment.yaml

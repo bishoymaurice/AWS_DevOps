@@ -9,6 +9,6 @@ while true; do
 
     if [[ "$STATUS" == "$READY" ]]
         then
-        break;
+        break
     fi
 done

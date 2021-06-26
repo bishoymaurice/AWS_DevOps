@@ -71,12 +71,15 @@ jobs:
 
   deploy:
     docker:
-      - image: bitnami/kubectl:1.20.8
+      - image: roffe/kubectl:v1.13.2
     
     working_directory: ~/repo
     
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - roffe/kubectl:v1.13.2
       - run:
           name: Build Docker image
           command: |
@@ -89,6 +92,10 @@ jobs:
           command: |
             cd docker
             make push
+      - save_cache:
+          paths:
+            - ~/kube-deploy
+          key: roffe/kubectl:v1.13.2
 
 workflows:
   default:

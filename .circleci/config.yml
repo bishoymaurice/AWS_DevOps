@@ -108,19 +108,19 @@ jobs:
             
             # App file
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./pp-deploy.yaml
-            more app-deploy.yaml
+            more ./app-deploy.yaml
 
             # Expose port
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./app-expose.yaml
-            more app-expose.yaml
+            more ./app-expose.yaml
 
             # Load balancer
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./load-balancer.yaml
-            more load-balancer.yaml
+            more ./load-balancer.yaml
 
             # Makefile
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./Makefile
-            more Makefile
+            more ./Makefile
       - run:
           name: Deploy blue instance
           command: |

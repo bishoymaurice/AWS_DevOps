@@ -16,7 +16,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             cd docker
             python3 -m venv ~/.venv
@@ -30,12 +30,24 @@ jobs:
             - ~/docker/.venv
           key: v1-dependencies-{{ checksum "./docker/requirements.txt" }}
       - run:
-          name: run lint
+          name: Lint Dockerfile and app source code
           command: |
             cd docker
             source ~/.venv/bin/activate
             pip install pylint
             make lint
+      - run:
+          name: Build Docker image
+          command: |
+            cd docker
+            source ~/.venv/bin/activate
+            make build
+      - run:
+          name: Push Docker image to docker hub
+          command: |
+            cd docker
+            source ~/.venv/bin/activate
+            make push
   
 workflows:
   default:

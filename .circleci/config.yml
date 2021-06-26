@@ -38,8 +38,4 @@ jobs:
 workflows:
   default:
     jobs:
-      - lint
-      - build:
-          requires: [lint]
-      - push:
-          requires: [build]
+      - build

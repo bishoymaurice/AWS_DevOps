@@ -6,7 +6,7 @@ while true; do
   kubectl get deploy sampleapp-deployment-TARGET_TAG
   READY=$(kubectl get deploy sampleapp-deployment-TARGET_TAG | grep "1/1" | wc -l)
 
-  if [[ $READY -eq 1 ]]
+  if [[ "$READY" == "1" ]]
   then
     break;
   fi

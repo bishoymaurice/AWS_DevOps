@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
 
-  build:
+  lint:
     docker:
       - image: python:3.7.3-stretch
     
@@ -36,6 +36,15 @@ jobs:
             source ~/.venv/bin/activate
             pip install pylint
             make lint
+
+  build:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    
+    working_directory: ~/repo
+    
+    steps:
+      - checkout
       - run:
           name: Build Docker image
           command: |
@@ -52,4 +61,5 @@ jobs:
 workflows:
   default:
     jobs:
+      - lint
       - build

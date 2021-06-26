@@ -38,7 +38,8 @@ jobs:
             make lint
 
   build:
-    machine: true
+    docker:
+      - image: circleci/buildpack-deps:stretch
     
     working_directory: ~/repo
     
@@ -49,6 +50,7 @@ jobs:
             - v1-dependencies-dockerfile-{{ checksum "./docker/Dockerfile" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-dockerfile
+      - setup_remote_docker
       - run:
           name: Build Docker image
           command: |

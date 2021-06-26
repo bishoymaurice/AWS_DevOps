@@ -18,6 +18,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            cd docker
             python3 -m venv ~/.venv
             source ~/.venv/bin/activate
             make install
@@ -26,11 +27,12 @@ jobs:
             chmod +x /bin/hadolint
       - save_cache:
           paths:
-            - ./venv
+            - ~/docker/.venv
           key: v1-dependencies-{{ checksum "./docker/requirements.txt" }}
       - run:
           name: run lint
           command: |
+            cd docker
             source ~/.venv/bin/activate
             pip install pylint
             make lint

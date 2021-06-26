@@ -16,4 +16,4 @@ deploy:
 	kubectl create -f ./app-deploy.yaml
 
 undeploy:
-	kubectl delete -f ./app-deploy.yaml
+	kubectl delete -f ./app-deploy.yaml || echo "Deployment already not found"

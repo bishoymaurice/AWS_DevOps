@@ -8,4 +8,5 @@ while true; do
   if [ $READY == "1" ]
   then
     break;
+  fi
 done

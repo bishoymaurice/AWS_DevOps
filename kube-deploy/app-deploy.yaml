@@ -8,14 +8,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sampleapp
+      app: sampleapp-TARGET_TAG
   template:
     metadata:
       labels:
-        app: sampleapp
+        app: sampleapp-TARGET_TAG
     spec:
       containers:
-      - name: sampleapp
+      - name: sampleapp-TARGET_TAG
         image: bishoy/sampleapp:TARGET_TAG
         ports:
         - containerPort: 80

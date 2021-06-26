@@ -7,6 +7,8 @@ configure:
 	aws s3 ls
 	aws eks --region eu-west-2 update-kubeconfig --name eks-cluster
 	kubectl get svc
+	kubectl get po
+	kubectl get rs
 
 deploy-blue:
 	kubectl create -f ./app-deploy.yaml

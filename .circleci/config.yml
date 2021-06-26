@@ -81,6 +81,11 @@ jobs:
           keys:
             - roffe/kubectl:v1.13.2
       - run:
+          name: Install dependencies
+          command: |
+            apt update
+            apt install make
+      - run:
           name: Build Docker image
           command: |
             cd kube-deploy

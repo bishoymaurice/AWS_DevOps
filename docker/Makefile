@@ -1,3 +1,4 @@
+
 DOCKER_IMAGE=bishoy/sampleapp
 DOCKER_TAG=v1.0.0
 DOCKER_PATH=${DOCKER_IMAGE}:${DOCKER_TAG}
@@ -14,5 +15,5 @@ build:
 	docker build -t ${DOCKER_PATH} --tag=${DOCKER_TAG} .
 
 push:
-	echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+	echo ${DOCKERHUB_PASS} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
 	docker push $DOCKER_PATH

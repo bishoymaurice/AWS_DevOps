@@ -71,7 +71,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: bitnami/kubectl
     
     working_directory: ~/repo
     
@@ -94,7 +94,8 @@ workflows:
   default:
     jobs:
       - build
-      - deploy
+      - deploy:
+        requires: [build]
       # - lint
       # - build:
       #     requires: [lint]

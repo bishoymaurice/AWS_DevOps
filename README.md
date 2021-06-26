@@ -36,7 +36,7 @@ This project simulates needed steps to create Kubernetes cluster on AWS using Co
 
 ### How To
 
-#### Build Kubernetes cluster on AWS
+#### Build Kubernetes Cluster on AWS
 
 1. Login to AWS Account using below command (for more info, please refer to AWS docs).
 
@@ -51,7 +51,7 @@ cd aws-eks
 sh ./deploy-aws-eks.sh
 ```
 
-#### Deploy Nginx app
+#### Deploy Nginx App on the created cluster
 
 1. Go to docker/app.
 2. Replace index.html file with the new one.

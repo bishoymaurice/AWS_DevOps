@@ -49,13 +49,11 @@ jobs:
           name: Build Docker image
           command: |
             cd docker
-            source ~/.venv/bin/activate
             make build
       - run:
           name: Push Docker image to docker hub
           command: |
             cd docker
-            source ~/.venv/bin/activate
             make push
   
 workflows:

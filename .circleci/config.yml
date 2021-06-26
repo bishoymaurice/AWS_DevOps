@@ -151,9 +151,8 @@ jobs:
 workflows:
   default:
     jobs:
-      - build
+      - lint
+      - build:
+          requires: [lint]
       - deploy:
           requires: [build]
-      # - lint
-      # - build:
-      #     requires: [lint]

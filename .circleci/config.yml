@@ -90,6 +90,13 @@ jobs:
             echo "$(<kubectl.sha256) kubectl" | sha256sum --check
             install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
       - run:
+          name: Connect kubectl to AWS EKS
+          command: |
+            cd kube-deploy
+            make undeploy
+            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW_ID}/g' deployment.yaml
+            make deploy
+      - run:
           name: Build Docker image
           command: |
             cd kube-deploy

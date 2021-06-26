@@ -102,7 +102,7 @@ jobs:
           command: |
             cd kube-deploy
             make undeploy
-            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW_ID}/g' deployment.yaml
+            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW_ID}/g' app-deploy.yaml
             make deploy
       - run:
           name: Push Docker image to docker hub

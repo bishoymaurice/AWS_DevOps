@@ -17,4 +17,4 @@ build:
 
 push:
 	docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASS}
-	docker push $DOCKER_PATH
+	docker push ${DOCKER_PATH}

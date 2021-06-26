@@ -12,3 +12,5 @@ This project simulates needed steps to create Kubernetes cluster on AWS using Co
         - Kubernetes Cluster
 - Dockerfile
 - Circle CI
+- Kuebctl
+- AWS CLI

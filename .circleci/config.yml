@@ -55,7 +55,7 @@ jobs:
           name: Build Docker image
           command: |
             cd docker/app
-            sed -i s/REFERENCE_NO/${CIRCLE_WORKFLOW_ID}/g' index.html
+            sed -i 's/REFERENCE_NO/${CIRCLE_WORKFLOW_ID}/g' index.html
             cd ..
             make build
       - run:

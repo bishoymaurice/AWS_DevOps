@@ -71,7 +71,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: debian:stretch-slim
     
     working_directory: ~/repo
     
@@ -79,7 +79,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - circleci/buildpack-deps:stretch
+            - debian:stretch-slim
       - run:
           name: Install dependencies
           command: |
@@ -97,22 +97,10 @@ jobs:
           command: |
             cd kube-deploy
             make configure
-      - run:
-          name: Build Docker image
-          command: |
-            cd kube-deploy
-            make undeploy
-            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW_ID}/g' app-deploy.yaml
-            make deploy
-      - run:
-          name: Push Docker image to docker hub
-          command: |
-            cd docker
-            make push
       - save_cache:
           paths:
             - ~/kube-deploy
-          key: circleci/buildpack-deps:stretch
+          key: debian:stretch-slim
 
 workflows:
   default:

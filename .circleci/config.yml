@@ -60,6 +60,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - lint
-      - build:
-          requires: [lint]
+      - build
+      # - lint
+      # - build:
+      #     requires: [lint]

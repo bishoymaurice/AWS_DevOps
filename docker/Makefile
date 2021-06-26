@@ -7,7 +7,7 @@ install:
 
 lint:
 	hadolint Dockerfile
-	html_lint.py ../app/index.html
+	html_lint.py ./app/index.html
 
 build:
 	docker build -t ${DOCKER_PATH} --tag=${DOCKER_IMAGE_TAG} .

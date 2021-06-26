@@ -71,7 +71,7 @@ jobs:
 
   deploy:
     docker:
-      - image: bitnami/kubectl
+      - image: bitnami/kubectl:1.20.8
     
     working_directory: ~/repo
     

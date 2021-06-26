@@ -93,9 +93,7 @@ jobs:
           name: Connect kubectl to AWS EKS
           command: |
             cd kube-deploy
-            make undeploy
-            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW_ID}/g' deployment.yaml
-            make deploy
+            make configure
       - run:
           name: Build Docker image
           command: |

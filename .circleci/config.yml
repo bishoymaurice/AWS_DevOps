@@ -101,7 +101,7 @@ jobs:
             cd kube-deploy
             make configure
       - run:
-          name: Configure kube files
+          name: Configure kubectl files
           command: |
             cd kube-deploy
             export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}

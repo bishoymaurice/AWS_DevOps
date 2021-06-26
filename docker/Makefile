@@ -16,5 +16,5 @@ build:
 	docker build -t ${DOCKER_PATH} --tag=${DOCKER_TAG} .
 
 push:
-	echo ${DOCKERHUB_PASS} | winpty docker login -u ${DOCKERHUB_USERNAME} --password-stdin
+	echo ${DOCKERHUB_PASS} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
 	docker push $DOCKER_PATH

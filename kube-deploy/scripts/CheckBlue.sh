@@ -9,7 +9,8 @@ do
     READY="1"
 
     if [[ "$STATUS" == "$READY" ]]
-        then
+    then
         break
     fi
+
 done

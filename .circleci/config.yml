@@ -97,6 +97,13 @@ jobs:
           command: |
             cd kube-deploy
             make configure
+      - run:
+          name: Deploy new image
+          command: |
+            cd kube-deploy
+            make undeploy
+            sed -i 's/TARGET_TAG/${CIRCLE_WORKFLOW_ID}/g' app-deploy.yaml
+            make deploy
       - save_cache:
           paths:
             - ~/kube-deploy

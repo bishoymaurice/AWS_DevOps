@@ -5,7 +5,8 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: sampleapp-TARGET_TAG
+    matchLabels:
+      app: sampleapp-TARGET_TAG
   ports:
     - port: 80
       targetPort: 80

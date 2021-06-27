@@ -63,6 +63,11 @@ jobs:
             more Makefile
             make build
       - run:
+          name: Scan image
+          command: |
+            cd docker
+            make scan
+      - run:
           name: Push Docker image to docker hub
           command: |
             cd docker

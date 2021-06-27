@@ -64,10 +64,6 @@ Parameters:
     Default: 1
     Description: Minimum size of Node Group ASG.
 
-  Subnets:
-    Type: "List<AWS::EC2::Subnet::Id>"
-    Description: The subnets where workers can be created.
-
 Conditions:
   HasNodeImageId: !Not
     - "Fn::Equals":
@@ -214,7 +210,9 @@ Resources:
         - Key: !Sub kubernetes.io/cluster/${ClusterName}
           PropagateAtLaunch: true
           Value: owned
-      VPCZoneIdentifier: !Ref Subnets
+      VPCZoneIdentifier:
+        - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB1-SN"
+        - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB2-SN"
     UpdatePolicy:
       AutoScalingRollingUpdate:
         MaxBatchSize: 1

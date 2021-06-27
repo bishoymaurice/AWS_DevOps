@@ -13,8 +13,10 @@ lint:
 	html_lint.py ./app/index.html
 
 build:
-	docker scan --file ./Dockerfile docker-scan:e2e
 	docker build -t ${DOCKER_PATH} --tag=${DOCKER_TAG} .
+
+scan:
+	docker scan ${DOCKER_PATH}
 
 push:
 	echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin

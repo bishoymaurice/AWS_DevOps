@@ -110,9 +110,9 @@ jobs:
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./app-deploy.yaml
             cat ./app-deploy.yaml
 
-            # Expose port
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./app-expose.yaml
-            cat ./app-expose.yaml
+            # Expose node port
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./node-port.yaml
+            cat ./node-port.yaml
 
             # Load balancer
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./load-balancer.yaml

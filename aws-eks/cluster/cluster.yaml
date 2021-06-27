@@ -78,6 +78,9 @@ Resources:
         Subnets:
           - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB1-SN"
           - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB2-SN"
+        Tags: 
+        - Key: Name 
+          Value: "AutoScalling_NG1"
       DependsOn: [EksCluster]
 
 Outputs:

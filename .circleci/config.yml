@@ -57,10 +57,10 @@ jobs:
             cd docker/app
             export CIRCLE_WORKFLOW=${CIRCLE_WORKFLOW_ID:0:7}
             sed -i "s/REFERENCE_NO/${CIRCLE_WORKFLOW}/g" index.html
-            more index.html
+            cat index.html
             cd ..
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" Makefile
-            more Makefile
+            cat Makefile
             make build
       - run:
           name: Scan image

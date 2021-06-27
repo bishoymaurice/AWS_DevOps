@@ -80,7 +80,7 @@ Resources:
           - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB2-SN"
         Tags: 
         - Key: Name 
-          Value: "AutoScalling_NG1"
+          Value: !Sub ${EnvironmentName}-NG1
       DependsOn: [EksCluster]
 
 Outputs:

@@ -64,6 +64,18 @@ Parameters:
     Default: 1
     Description: Minimum size of Node Group ASG.
 
+  NodeImageId:
+    Type: String
+    Default: ""
+    Description: (Optional) Specify your own custom image ID. This value overrides any AWS Systems Manager Parameter Store value specified above.
+  
+  DisableIMDSv1:
+    Type: String
+    Default: "false"
+    AllowedValues:
+      - "false"
+      - "true"
+
 Conditions:
   HasNodeImageId: !Not
     - "Fn::Equals":

@@ -1,3 +1,4 @@
+1
 # Project Description
 This project simulates needed steps to create Kubernetes cluster on AWS using CoudFormation then build and deploy dockerized NginX app using Blue/Green deployment strategy.
 

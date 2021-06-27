@@ -145,16 +145,6 @@ jobs:
           command: |
             cd kube-deploy
             make check-blue
-      - run:
-          name: Switch load balancer to target the new app
-          command: |
-            cd kube-deploy
-            make switch-load-balancer
-      - run:
-          name: Destroy old version
-          command: |
-            cd kube-deploy
-            make destroy-old-version
       - save_cache:
           paths:
             - ~/kube-deploy

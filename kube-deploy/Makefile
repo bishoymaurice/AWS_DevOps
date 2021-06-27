@@ -22,7 +22,7 @@ expose-blue-node:
 check-blue:
 	sh ./scripts/CheckBlue.sh
 
-switch-load-balancer:
+create-load-balancer:
 	kubectl create -f ./load-balancer.yaml
 
 destroy-old-version:

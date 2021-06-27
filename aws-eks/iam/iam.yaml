@@ -29,7 +29,7 @@ Resources:
           Action:
           - sts:AssumeRole
       ManagedPolicyArns:
-        - arn:aws:iam::639584826680:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS
+        - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 
   EksNodeInstanceRole:
       Type: AWS::IAM::Role

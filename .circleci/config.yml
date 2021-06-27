@@ -15,6 +15,7 @@ jobs:
             - v1-dependencies-{{ checksum "./docker/requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+      - setup_remote_docker
       - run:
           name: Install dependencies
           command: |

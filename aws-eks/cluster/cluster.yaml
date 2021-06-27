@@ -156,7 +156,7 @@ Resources:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: Security group for all nodes in the cluster
-      Tags:
+      dict:
         - Key: !Sub kubernetes.io/cluster/${ClusterName}
           Value: owned
       VpcId: !Ref VpcId
@@ -207,7 +207,7 @@ Resources:
         Version: !GetAtt NodeLaunchTemplate.LatestVersionNumber
       MaxSize: !Ref NodeAutoScalingGroupMaxSize
       MinSize: !Ref NodeAutoScalingGroupMinSize
-      Tags:
+      dict:
         - Key: Name
           PropagateAtLaunch: true
           Value: !Sub ${ClusterName}-${NodeGroupName}-Node

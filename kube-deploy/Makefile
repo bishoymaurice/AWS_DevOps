@@ -13,6 +13,9 @@ configure:
 deploy-blue:
 	kubectl apply -f ./app-deploy.yaml
 
+expose-blue-node:
+	kubectl apply -f ./node-port.yaml
+
 check-blue:
 	sh ./scripts/CheckBlue.sh
 

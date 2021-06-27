@@ -51,6 +51,14 @@ cd aws-eks
 sh ./deploy-aws-eks.sh
 ```
 
+This script will provision VPC on AWS with 2 public subnets. Usually, Kubernetes run in private subnets, but here we're working on demo. That's why you will find Kubernetes cluster is provisioned on 2 public subnets.
+
+Then the script will create the IAM roles needed for Kubernetes Cluster and worker nodes. In addition to creating key and downloading ssh key that will be used for worker nodes.
+
+Last step in the script is creating EKS Cluster.
+
+Note: all AWS resources are created by CloudFormation or AWS CLI.
+
 #### Deploy Nginx App on the created cluster
 
 1. Go to docker/app.

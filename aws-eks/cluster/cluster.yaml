@@ -49,8 +49,7 @@ Resources:
     Type: AWS::EKS::Cluster
     Properties:
       Name: !Ref EnvironmentName
-      RoleArn:
-        Fn::ImportValue: !Sub "${IamEnvironmentName}-RoleArn"
+      RoleArn: arn:aws:iam::639584826680:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS
       ResourcesVpcConfig:
         SecurityGroupIds:
           - !Ref EksClusterSecurityGroup
@@ -63,8 +62,7 @@ Resources:
       Type: AWS::EKS::Nodegroup
       Properties:
         ClusterName: !Ref EksCluster
-        NodeRole: 
-          Fn::ImportValue: !Sub "${IamEnvironmentName}-NodeRoleArn"
+        NodeRole: arn:aws:iam::639584826680:role/aws-service-role/eks-nodegroup.amazonaws.com/AWSServiceRoleForAmazonEKSNodegroup
         AmiType: AL2_x86_64
         InstanceTypes: 
           - !Ref EKSWorkerNodeInstanceType

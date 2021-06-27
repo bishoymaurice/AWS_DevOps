@@ -10,9 +10,6 @@ configure:
 	kubectl get po
 	kubectl get rs
 
-setup-auto-scaler:
-	kubectl create -f ./auto-scaler.yaml
-
 deploy-blue:
 	kubectl create -f ./app-deploy.yaml
 

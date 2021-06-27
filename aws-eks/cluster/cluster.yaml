@@ -44,6 +44,11 @@ Resources:
         FromPort: 80
         ToPort: 80
         CidrIp: 0.0.0.0/0
+        # For worker nodes NodePort
+      - IpProtocol: tcp
+        FromPort: 30007
+        ToPort: 30007
+        CidrIp: 0.0.0.0/0
 
   EksCluster:
     Type: AWS::EKS::Cluster

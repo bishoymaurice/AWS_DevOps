@@ -136,6 +136,11 @@ jobs:
             cd kube-deploy
             make deploy-blue
       - run:
+          name: Expose blue node
+          command: |
+            cd kube-deploy
+            make expose-blue-node
+      - run:
           name: Check blue instance
           command: |
             cd kube-deploy

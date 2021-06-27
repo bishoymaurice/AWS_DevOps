@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sampleapp-deployment-TARGET_TAG
-  app: sampleapp-TARGET_TAG
   labels:
     app: sampleapp-TARGET_TAG
 spec:

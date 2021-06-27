@@ -11,6 +11,7 @@ install:
 lint:
 	hadolint ./Dockerfile
 	html_lint.py ./app/index.html
+	docker scan --file ./Dockerfile docker-scan:e2e
 
 build:
 	docker build -t ${DOCKER_PATH} --tag=${DOCKER_TAG} .

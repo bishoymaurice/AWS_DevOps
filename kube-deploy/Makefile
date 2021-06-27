@@ -11,16 +11,16 @@ configure:
 	kubectl get rs
 
 deploy-blue:
-	kubectl apply -f ./app-deploy.yaml
+	kubectl create -f ./app-deploy.yaml
 
 expose-blue-node:
-	kubectl apply -f ./node-port.yaml
+	kubectl create -f ./node-port.yaml
 
 check-blue:
 	sh ./scripts/CheckBlue.sh
 
 switch-load-balancer:
-	kubectl apply -f ./load-balancer.yaml
+	kubectl create -f ./load-balancer.yaml
 
 destroy-old-version:
 	sh ./scripts/DestroyBlue.sh

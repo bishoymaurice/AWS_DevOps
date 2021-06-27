@@ -30,6 +30,53 @@ Parameters:
       Type: "AWS::EC2::KeyPair::KeyName"
       Default: "my-eks-key"
       Description: The name of Key Pair to etasblish connection with Worker Nodes
+  
+  NodeVolumeSize:
+    Type: Number
+    Default: 20
+    Description: Node volume size
+
+  NodeImageIdSSMParam:
+    Type: "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>"
+    Default: /aws/service/eks/optimized-ami/1.17/amazon-linux-2/recommended/image_id
+    Description: AWS Systems Manager Parameter Store parameter of the AMI ID for the worker node instances. Change this value to match the version of Kubernetes you are using.
+
+  NodeInstanceType:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+    ConstraintDescription: Must be a valid EC2 instance type
+    Description: EC2 instance type for the node instances
+
+  NodeAutoScalingGroupDesiredCapacity:
+    Type: Number
+    Default: 3
+    Description: Desired capacity of Node Group ASG.
+  
+  NodeAutoScalingGroupMaxSize:
+    Type: Number
+    Default: 4
+    Description: Maximum size of Node Group ASG. Set to at least 1 greater than NodeAutoScalingGroupDesiredCapacity.
+
+  NodeAutoScalingGroupMinSize:
+    Type: Number
+    Default: 1
+    Description: Minimum size of Node Group ASG.
+
+  Subnets:
+    Type: "List<AWS::EC2::Subnet::Id>"
+    Description: The subnets where workers can be created.
+
+Conditions:
+  HasNodeImageId: !Not
+    - "Fn::Equals":
+      - !Ref NodeImageId
+      - ""
+  IMDSv1Disabled:
+    "Fn::Equals":
+      - !Ref DisableIMDSv1
+      - "true"
 
 Resources:
 
@@ -59,26 +106,120 @@ Resources:
           - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB2-SN"
     DependsOn: [EksClusterSecurityGroup]
 
-  EksNodeGroup:
-      Type: AWS::EKS::Nodegroup
-      Properties:
-        ClusterName: !Ref EksCluster
-        NodeRole: 
-          Fn::ImportValue: !Sub "${IamEnvironmentName}-NodeRoleArn"
-        AmiType: AL2_x86_64
-        InstanceTypes: 
-          - !Ref EKSWorkerNodeInstanceType
-        NodegroupName: !Ref EKSNodeGroupName
-        RemoteAccess:
-          Ec2SshKey: !Ref EksKeyPair
-        ScalingConfig:
-          MinSize: 1
-          DesiredSize: 2
-          MaxSize: 7
-        Subnets:
-          - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB1-SN"
-          - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB2-SN"
-      DependsOn: [EksCluster]
+  # EksNodeGroup:
+  #     Type: AWS::EKS::Nodegroup
+  #     Properties:
+  #       ClusterName: !Ref EksCluster
+  #       NodeRole: 
+  #         Fn::ImportValue: !Sub "${IamEnvironmentName}-NodeRoleArn"
+  #       AmiType: AL2_x86_64
+  #       InstanceTypes: 
+  #         - !Ref EKSWorkerNodeInstanceType
+  #       NodegroupName: !Ref EKSNodeGroupName
+  #       RemoteAccess:
+  #         Ec2SshKey: !Ref EksKeyPair
+  #       ScalingConfig:
+  #         MinSize: 1
+  #         DesiredSize: 2
+  #         MaxSize: 7
+  #       Subnets:
+  #         - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB1-SN"
+  #         - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB2-SN"
+  #     DependsOn: [EksCluster]
+  
+  NodeInstanceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - !FindInMap [PartitionMap, !Ref "AWS::Partition", EC2ServicePrincipal]
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/AmazonEKS_CNI_Policy"
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      Path: /
+
+  NodeInstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Path: /
+      Roles:
+        - !Ref NodeInstanceRole
+
+  NodeSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: Security group for all nodes in the cluster
+      Tags:
+        - Key: !Sub kubernetes.io/cluster/${ClusterName}
+          Value: owned
+      VpcId: !Ref VpcId
+
+  NodeLaunchTemplate:
+    Type: "AWS::EC2::LaunchTemplate"
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              VolumeSize: !Ref NodeVolumeSize
+              VolumeType: gp2
+        IamInstanceProfile:
+          Arn: !GetAtt NodeInstanceProfile.Arn
+        ImageId: !If
+          - HasNodeImageId
+          - !Ref NodeImageId
+          - !Ref NodeImageIdSSMParam
+        InstanceType: !Ref NodeInstanceType
+        KeyName: !Ref EksKeyPair
+        SecurityGroupIds:
+        - !Ref NodeSecurityGroup
+        UserData: !Base64
+          "Fn::Sub": |
+            #!/bin/bash
+            set -o xtrace
+            /etc/eks/bootstrap.sh ${ClusterName} ${BootstrapArguments}
+            /opt/aws/bin/cfn-signal --exit-code $? \
+                     --stack  ${AWS::StackName} \
+                     --resource NodeGroup  \
+                     --region ${AWS::Region}
+        MetadataOptions:
+          HttpPutResponseHopLimit : 2
+          HttpEndpoint: enabled
+          HttpTokens: !If
+            - IMDSv1Disabled
+            - required
+            - optional
+
+  NodeGroup:
+    Type: "AWS::AutoScaling::AutoScalingGroup"
+    Properties:
+      DesiredCapacity: !Ref NodeAutoScalingGroupDesiredCapacity
+      LaunchTemplate:
+        LaunchTemplateId: !Ref NodeLaunchTemplate
+        Version: !GetAtt NodeLaunchTemplate.LatestVersionNumber
+      MaxSize: !Ref NodeAutoScalingGroupMaxSize
+      MinSize: !Ref NodeAutoScalingGroupMinSize
+      Tags:
+        - Key: Name
+          PropagateAtLaunch: true
+          Value: !Sub ${ClusterName}-${NodeGroupName}-Node
+        - Key: !Sub kubernetes.io/cluster/${ClusterName}
+          PropagateAtLaunch: true
+          Value: owned
+      VPCZoneIdentifier: !Ref Subnets
+    UpdatePolicy:
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: !Ref NodeAutoScalingGroupDesiredCapacity
+        PauseTime: PT5M
 
 Outputs:
 

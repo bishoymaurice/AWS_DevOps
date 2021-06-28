@@ -131,12 +131,9 @@ spec:
   template:
     metadata:
       labels:
-        app: sampleapp-nginx
-      annotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '8085'
+        app: sampleapp-nginx-lb
     spec:
-      serviceAccountName: sampleapp-nginx
+      serviceAccountName: sampleapp-nginx-lb
       tolerations:
         - effect: NoSchedule
           operator: "Equal"
@@ -160,7 +157,7 @@ spec:
             - --stderrthreshold=info
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
-            - --nodes={{ node_asg_min }}:{{ node_asg_max }}:{{ name }}
+            - --nodes={{ 1 }}:{{ 10 }}:{{ AutoScaleNode }}
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt #/etc/ssl/certs/ca-bundle.crt for Amazon Linux Worker Nodes

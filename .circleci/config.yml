@@ -122,13 +122,6 @@ jobs:
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./Makefile
             cat ./Makefile
 
-            # Scripts
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/wait.sh
-            cat ./scripts/wait.sh
-
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/destroy.sh
-            cat ./scripts/destroy.sh
-
             echo "All files are configured!"
       - run:
           name: Deploy blue instance
@@ -140,11 +133,6 @@ jobs:
           command: |
             cd kube-deploy
             make expose
-      - run:
-          name: Check blue instance
-          command: |
-            cd kube-deploy
-            make wait
       - save_cache:
           paths:
             - ~/kube-deploy

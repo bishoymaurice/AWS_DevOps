@@ -123,11 +123,11 @@ jobs:
             cat ./Makefile
 
             # Scripts
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/CheckBlue.sh
-            cat ./scripts/CheckBlue.sh
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/check.sh
+            cat ./scripts/check.sh
 
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/DestroyBlue.sh
-            cat ./scripts/DestroyBlue.sh
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/destroy.sh
+            cat ./scripts/destroy.sh
 
             echo "All files are configured!"
       - run:

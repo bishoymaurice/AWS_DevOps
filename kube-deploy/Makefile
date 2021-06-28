@@ -19,6 +19,3 @@ expose:
 
 auto-scale:
 	kubectl apply -f ./auto-scaler.yaml
-
-wait:
-	sh ./scripts/wait.sh

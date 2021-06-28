@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sampleapp-deployment-TARGET_TAG
+  name: sampleapp-nginx-deployment
   labels:
-    app: sampleapp-TARGET_TAG
+    app: sampleapp-nginx
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
-      app: sampleapp-TARGET_TAG
+      app: sampleapp-nginx
   template:
     metadata:
       labels:
-        app: sampleapp-TARGET_TAG
+        app: sampleapp-nginx
     spec:
       containers:
-      - name: sampleapp-TARGET_TAG
+      - name: sampleapp-nginx
         image: bishoy/sampleapp:TARGET_TAG
         ports:
         - containerPort: 80

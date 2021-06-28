@@ -123,8 +123,8 @@ jobs:
             cat ./Makefile
 
             # Scripts
-            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/check.sh
-            cat ./scripts/check.sh
+            sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/wait.sh
+            cat ./scripts/wait.sh
 
             sed -i "s/TARGET_TAG/${CIRCLE_WORKFLOW}/g" ./scripts/destroy.sh
             cat ./scripts/destroy.sh

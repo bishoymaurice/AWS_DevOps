@@ -14,13 +14,8 @@ deploy:
 	kubectl create -f ./app-deploy.yaml
 
 expose:
+	kubectl apply -f ./load-balancer.yaml
 	kubectl create -f ./node-port.yaml
 
 wait:
-	sh ./scripts/check.sh
-
-lb:
-	kubectl create -f ./load-balancer.yaml
-
-destroy:
-	sh ./scripts/destroy.sh
+	sh ./scripts/wait.sh

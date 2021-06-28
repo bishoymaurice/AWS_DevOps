@@ -119,7 +119,7 @@ subjects:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sampleapp-nginx
+  name: sampleapp-nginx-lb
   namespace: kube-system
   labels:
     app: sampleapp-nginx
@@ -131,9 +131,9 @@ spec:
   template:
     metadata:
       labels:
-        app: sampleapp-nginx-lb
+        app: sampleapp-nginx
     spec:
-      serviceAccountName: sampleapp-nginx-lb
+      serviceAccountName: sampleapp-nginx
       tolerations:
         - effect: NoSchedule
           operator: "Equal"

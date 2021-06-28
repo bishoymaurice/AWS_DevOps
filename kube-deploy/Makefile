@@ -11,11 +11,14 @@ configure:
 	kubectl get rs
 
 deploy:
-	kubectl create -f ./app-deploy.yaml
+	kubectl apply -f ./app-deploy.yaml
 
 expose:
 	kubectl apply -f ./load-balancer.yaml
-	kubectl create -f ./node-port.yaml
+	kubectl apply -f ./node-port.yaml
+
+auto-scale:
+	kubectl apply -f ./auto-scaler.yaml
 
 wait:
 	sh ./scripts/wait.sh

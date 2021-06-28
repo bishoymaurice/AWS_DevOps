@@ -10,17 +10,17 @@ configure:
 	kubectl get po
 	kubectl get rs
 
-deploy-blue:
+deploy:
 	kubectl create -f ./app-deploy.yaml
 
-expose-blue-node:
+expose:
 	kubectl create -f ./node-port.yaml
 
-check-blue:
-	sh ./scripts/CheckBlue.sh
+wait:
+	sh ./scripts/check.sh
 
-create-load-balancer:
+lb:
 	kubectl create -f ./load-balancer.yaml
 
-destroy-old-version:
-	sh ./scripts/DestroyBlue.sh
+destroy:
+	sh ./scripts/destroy.sh

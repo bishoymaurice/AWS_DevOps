@@ -134,17 +134,17 @@ jobs:
           name: Deploy blue instance
           command: |
             cd kube-deploy
-            make deploy-blue
+            make deploy
       - run:
           name: Expose blue node
           command: |
             cd kube-deploy
-            make expose-blue-node
+            make expose
       - run:
           name: Check blue instance
           command: |
             cd kube-deploy
-            make check-blue
+            make wait
       - save_cache:
           paths:
             - ~/kube-deploy

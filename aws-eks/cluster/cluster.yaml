@@ -62,6 +62,7 @@ Resources:
   EksNodeGroup:
       Type: AWS::EKS::Nodegroup
       Properties:
+        CapacityType: 'SPOT'
         ClusterName: !Ref EksCluster
         NodeRole: 
           Fn::ImportValue: !Sub "${IamEnvironmentName}-NodeRoleArn"

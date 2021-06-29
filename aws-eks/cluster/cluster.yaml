@@ -17,7 +17,7 @@ Parameters:
   EKSWorkerNodeInstanceType:
       Type: String
       Default: t2.micro
-      AllowedValues: [t2.nano, t2.micro]
+      AllowedValues: [t2.micro]
       ConstraintDescription: Must be a valid EC2 instance type
       Description: EC2 instance type for the node instances
   

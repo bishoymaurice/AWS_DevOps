@@ -74,7 +74,7 @@ Resources:
         ScalingConfig:
           MinSize: 1
           DesiredSize: 2
-          MaxSize: 7
+          MaxSize: 8
         Subnets:
           - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB1-SN"
           - Fn::ImportValue: !Sub "${VPCEnvironmentName}-PUB2-SN"

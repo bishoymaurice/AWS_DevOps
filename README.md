@@ -68,3 +68,7 @@ Note: all AWS resources are created by CloudFormation or AWS CLI.
     1. Linting for both HTML code and Dockerfile.
     2. Build new docker image and push it into your docker hub account.
     3. Deploy the new version on Kubernetes cluster using simple Blue/Green strategy.
+
+#### Setup Auto Scaler on Kubernetes
+
+Please check this docuementation on AWS: https://aws.amazon.com/premiumsupport/knowledge-center/eks-metrics-server-pod-autoscaler
